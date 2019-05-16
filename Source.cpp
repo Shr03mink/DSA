@@ -1,142 +1,74 @@
-#include <iostream>
-#include <array>
+#include<iostream>
+#include<array>
 using namespace std;
-void merge(int arr[], int l, int r, int m)
-{
-	
-	int size1, size2;
-	int k = m - l + 1;
-	int s = r - m;  
-	int le[10];
-	int ri[10];
 
-	for (int i = 0; i < k; i++)
+void rotation(int arr[], int n, int d)
+{
+	int temp1 = 0, j = 0;
+	int temp[20];
+
+	for (int i = 0; i < n; i++)
 	{
-		le[i]=arr[i + l];
+		temp[i] = arr[i];
+		temp[n + i] = arr[i];
 	}
-	//int k =  sizeof(le) / sizeof(le[0]);
-	for (int j = 0; j < s; j++)
+
+
+
+	/* while (j < d)
 	{
-		ri[j]=arr[j + m + 1];
-	}
-	//int s = sizeof(ri)/sizeof(ri[0]);
-	int i = 0, j = 0, p = 0;
-	while (i < k && j < s)
-	{
-		if (le[i] <= ri[j])
+		temp1 = temp[0];
+
+		for (int i = d; i < n+d; i++)
 		{
-			arr[p] = le[i];
-			i++;
-			
+			//temp[i - 1] = temp[i];
 		}
-		else if (le[i] > ri[j])
-		{
-			arr[p] = ri[j];
-			j++;
-			
-		}
-		p++;
-	}
-	while (i < k)
-	{
-		arr[p] = le[i];
-		i++;
-		p++;
-	}
-	while (j < s)
-	{
-		arr[p] = ri[j];
+			//temp[n-1] = temp1;
 		j++;
-		p++;
 	}
-	cout << "\n after sorting: ";
-	for (int q = 0; q < p; q++)
-	{
-		cout << arr[q] << " ";
-	}
+    */
+
+	cout << "\n after rotation: ";
+	for (int i = d; i < n+d; i++)
+		cout << temp[i] << " ";
 }
-void mergesort(int arr[], int l, int r)
+
+/*
+void rotation(int* arr, int n, int d)
 {
-	
-	if (l < r)
+	int temp = 0, j = 0;
+	while (j < d)
 	{
-		int m = (l + r) / 2;
-		mergesort(arr, 0, m);
-		mergesort(arr, m + 1, r);
-		merge(arr, l, r, m);
+		temp = 0;
+		temp = arr[0];
+		for (int i = 1; i <= n; i++)
+			arr[i - 1] = arr[i];
+		arr[n] = temp;
+		j++;
 	}
-	
-}
-int partition(int arr[], int l, int u)
-{
-	int v, i, j, temp;
-	v = arr[l];
-	i = l;
-	j = u + 1;
-	do
-	{
-		do
-		{
-			i++;
-		} while (arr[i] < v && i <= u);
-		do
-		{
-			j--;
-		} while (v < arr[j]);
-		if (i < j)
-		{
-			temp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = temp;
-		}
-		
-
-	} while (i < j);
-	arr[l] = arr[j];
-	arr[j] = v;
-	return j;
-}
-void quicksort(int arr[], int l, int u)
-{
-	int j, k;
-	if (l < u)
-	{
-		j = partition(arr, l, u );
-
-		quicksort(arr, l, j - 1);
-		quicksort(arr, j + 1, u);
-
-	}
-	
-}
-
+	cout << "\n after rotation: ";
+	for (int i = 0; i < n; i++)
+		cout << arr[i] << " ";
+}*/
 
 int main()
 {
-	int arr[10];
-	int n = 0, ele;
-	cout << " enter the array: ";
-	for (int i = 0;; i++)
+	int arr[7], n = 0, d = 0;
+	cout << "\n enter the array of numbers: (enter 999 at the end of the sequence)";
+	for (int i = 0; ; i++)
 	{
-		
 		cin >> arr[i];
 		
-		n+=1;
+		n = n + 1;
 		if (arr[i] == 999)
 		{
 			n = n - 1;
 			break;
 		}
-		
-	}
-	//n = sizeof(arr) / sizeof(arr[0]);
-//	int* arr = &v[0];
-	//mergesort(arr, 0, n-1);
-	quicksort(arr, 0, n - 1);
-	cout << "\n after sorting: ";
-	for (int q = 0; q < n; q++)
-	{
-		cout << arr[q] << " ";
 	}
 	
+	cout << " enter the no. of rotations:";
+	cin >> d;
+	d = d % n;
+	rotation(arr, n , d);
 }
